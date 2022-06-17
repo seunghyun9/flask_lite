@@ -45,7 +45,7 @@ class CalculatorModel:
         w1 = tf.placeholder(tf.float32, name='w1')
         w2 = tf.placeholder(tf.float32, name='w2')
         feed_dict = {'w1': 8.0, 'w2': 2.0}
-        r = tf.add(w1, w2, name='op_add')
+        r = tf.subtract(w1, w2, name='op_sub')
         sess = tf.Session()
         _ = tf.Variable(initial_value = 'fake_variable')
         sess.run(tf.global_variables_initializer())
@@ -53,14 +53,38 @@ class CalculatorModel:
         print(f"feed_dict['w1'] : {feed_dict['w1']}")
         print(f"feed_dict['w2'] : {feed_dict['w2']}")
         result = sess.run(r, {w1: feed_dict['w1'], w2: feed_dict['w2']})
-        print(f'TF 덧셈결과: {result}')
-        saver.save(sess, os.path.join(self.model, 'calculator_add', 'model'), global_step=1000)
+        print(f'TF 뺄셈결과: {result}')
+        saver.save(sess, os.path.join(self.model, 'calculator_sub', 'model'), global_step=1000)
 
     def create_mul_model(self):
-        pass
+        w1 = tf.placeholder(tf.float32, name='w1')
+        w2 = tf.placeholder(tf.float32, name='w2')
+        feed_dict = {'w1': 8.0, 'w2': 2.0}
+        r = tf.multiply(w1, w2, name='op_mul')
+        sess = tf.Session()
+        _ = tf.Variable(initial_value = 'fake_variable')
+        sess.run(tf.global_variables_initializer())
+        saver = tf.train.Saver()
+        print(f"feed_dict['w1'] : {feed_dict['w1']}")
+        print(f"feed_dict['w2'] : {feed_dict['w2']}")
+        result = sess.run(r, {w1: feed_dict['w1'], w2: feed_dict['w2']})
+        print(f'TF 곱셈결과: {result}')
+        saver.save(sess, os.path.join(self.model, 'calculator_mul', 'model'), global_step=1000)
 
     def create_div_model(self):
-        pass
+        w1 = tf.placeholder(tf.float32, name='w1')
+        w2 = tf.placeholder(tf.float32, name='w2')
+        feed_dict = {'w1': 8.0, 'w2': 2.0}
+        r = tf.truediv(w1, w2, name='op_div')
+        sess = tf.Session()
+        _ = tf.Variable(initial_value = 'fake_variable')
+        sess.run(tf.global_variables_initializer())
+        saver = tf.train.Saver()
+        print(f"feed_dict['w1'] : {feed_dict['w1']}")
+        print(f"feed_dict['w2'] : {feed_dict['w2']}")
+        result = sess.run(r, {w1: feed_dict['w1'], w2: feed_dict['w2']})
+        print(f'TF 나눗셈 결과(몫): {result}')
+        saver.save(sess, os.path.join(self.model, 'calculator_div', 'model'), global_step=1000)
 
 if __name__=='__main__':
     ic(basedir)
@@ -70,4 +94,7 @@ if __name__=='__main__':
     session = tf.Session()
     ic(session.run(hello))
     c = CalculatorModel()
-    c.create_add_model()
+    #c.create_add_model()
+    #c.create_sub_model()
+    #c.create_mul_model()
+    c.create_div_model()
